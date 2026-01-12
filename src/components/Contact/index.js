@@ -85,20 +85,24 @@ const Contact = () => {
           </div>
         </div>
         <div className="info-map">
-          Slobodan Gajić,
+          Ikujebi Kehinde Ayanfe,
           <br />
-          Serbia,
+          Nigeria,
           <br />
-          Branka RadiČevića 19, 22000 <br />
-          Sremska Mitrovica <br />
+          Blessing estate, owode ibese <br />
+          Ikorodu Lagos <br />
           <br />
-          <span>freelancerslobodan@gmail.com</span>
+          <span>ikujebikehinde@gmail.com</span>
         </div>
         <div className="map-wrap">
-          <MapContainer center={[44.96366, 19.61045]} zoom={13}>
+          <MapContainer center={[6.6194, 3.5105]} zoom={13}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Marker position={[44.96366, 19.61045]}>
-              <Popup>Sloba lives here, come over for a cup of coffee :)</Popup>
+            <Marker position={[6.6194, 3.5105]}>
+              <Popup>
+                Ayanfe lives here 📍
+                <br />
+                Ikorodu, Lagos
+              </Popup>
             </Marker>
           </MapContainer>
         </div>
