@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef  } from 'react'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import './index.scss'
@@ -10,6 +10,8 @@ const Portfolio = () => {
   const [portfolio, setPortfolio] = useState([])
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
+   const sliderRef = useRef(null)
+   const [currentIndex, setCurrentIndex] = useState(0)
 
   // Form state
   const [form, setForm] = useState({
@@ -97,6 +99,30 @@ const Portfolio = () => {
 
     setLoading(false)
   }
+
+  
+
+  // Auto-slider for mobile only
+  useEffect(() => {
+    if (!sliderRef.current || portfolio.length === 0) return
+
+    const isMobile = window.innerWidth <= 768
+    if (!isMobile) return // only run on mobile
+
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => {
+        const nextIndex = prev + 1 >= portfolio.length ? 0 : prev + 1
+        sliderRef.current.scrollTo({
+          left: sliderRef.current.children[nextIndex].offsetLeft,
+          behavior: 'smooth',
+        })
+        return nextIndex
+      })
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [portfolio])
+
 
   return (
     <>
@@ -190,7 +216,7 @@ const Portfolio = () => {
         )}
 
         {/* PROJECT LIST */}
-        <div className="images-container">
+        <div className="images-container" ref={sliderRef}>
           {portfolio.map((port) => (
             <div className="image-box" key={port.id}>
               <img

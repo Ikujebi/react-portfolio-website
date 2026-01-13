@@ -1,297 +1,311 @@
 .portfolio-page {
-    padding-left: 100px;
-    padding-right: 50px;
-    width: calc(100% - 150px);
-    position: initial;
-    height: 100%;
-    overflow: auto;
+  padding-left: 100px;
+  padding-right: 50px;
+  width: calc(100% - 150px);
+  position: initial;
+  height: 100%;
+  overflow: auto;
 
-    h1.page-title {
-        margin-left: 100px;
-        margin-top: 100px;
+  h1.page-title {
+    margin-left: 100px;
+    margin-top: 100px;
+  }
+
+  .images-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding-bottom: 100px;
+  }
+
+  .image-box {
+    position: relative;
+    flex: 1 1 20%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    max-width: calc(25% - 10px);
+
+    .portfolio-image {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .images-container {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        padding-bottom: 100px;
+    .content {
+      position: absolute;
+      width: 100%;
+      z-index: 3;
+      padding: 10px 20px;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 1));
+      bottom: -70px;
     }
 
-    .image-box {
-        position: relative;
-        flex: 1 1 20%;
-        height: 400px;
-        overflow: hidden;
-        border-radius: 10px;
-        max-width: calc(25% - 10px);
-
-        .portfolio-image {
-            position: absolute;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .content {
-            position: absolute;
-            width: 100%;
-            z-index: 3;
-            padding: 10px 20px;
-            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-            background: linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.2) 0,
-                rgba(0, 0, 0, 1)
-            );
-            bottom: -70px;
-        }
-
-        .title {
-            margin-bottom: 0;
-            margin-top: 0;
-            color: #fff;
-            font-size: 24px;
-            font-weight: 500;
-            line-height: 24px;
-        }
-
-        .description {
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #fff;
-            font-weight: 700;
-        }
-
-        .btn {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            padding: 0 23px;
-            height: 40px;
-            line-height: 34px;
-            border: 2px solid #ffd700;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #fff;
-            background: transparent;
-            text-transform: uppercase;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            background: #ffd700;
-        }
-
-        &:after {
-            content: "";
-            background: linear-gradient(180deg, #ffd700, #000);
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-            opacity: 0;
-        }
-
-        &:hover:after {
-            opacity: 0.85;
-        }
-
-        &:hover .content {
-            bottom: 0;
-            background: transparent;
-        }
-    }
-}
-
-.screenshots {
-    margin-top: 15px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 12px;
-}
-
-.screenshot-item {
-    text-align: center;
-}
-
-.screenshot {
-    width: 100%;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.screenshot-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    margin-top: 4px;
-}
-
-.screenshot-description {
-    font-size: 11px;
-    color: #ccc;
-}
-.screenshot:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
-
-.portfolio-form {
-    max-width: 900px;
-    margin: 60px auto 80px;
-    padding: 40px;
-    background: #1c1c1c;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-
-    h2 {
-        font-size: 26px;
-        margin-bottom: 30px;
-        color: #ffd700;
-        text-align: center;
-        letter-spacing: 1px;
+    .title {
+      margin: 0;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 24px;
     }
 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-
-    input,
-    textarea {
-        width: 100%;
-        padding: 14px 16px;
-        background: #111;
-        border: 1px solid #333;
-        border-radius: 10px;
-        color: #fff;
-        font-size: 14px;
-        outline: none;
-        transition: all 0.3s ease;
-
-        &::placeholder {
-            color: #777;
-        }
-
-        &:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-        }
-    }
-
-    textarea {
-        min-height: 120px;
-        resize: vertical;
-        grid-column: span 2;
-    }
-
-    input[name="image"],
-    input[name="screenshots"],
-    input[name="url"],
-    input[name="github"] {
-        grid-column: span 2;
+    .description {
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #fff;
+      font-weight: 700;
     }
 
     .btn {
-        grid-column: span 2;
-        height: 50px;
-        font-size: 15px;
-        border-radius: 30px;
-        background: transparent;
-        border: 2px solid #ffd700;
-        color: #ffd700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      padding: 0 23px;
+      height: 40px;
+      line-height: 34px;
+      border: 2px solid #ffd700;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #fff;
+      background: transparent;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      cursor: pointer;
 
-        &:hover {
-            background: #ffd700;
-            color: #000;
-            transform: translateY(-2px);
-        }
-
-        &:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+      &:hover {
+        transform: translateY(-3px);
+        background: #ffd700;
+      }
     }
+
+    &:after {
+      content: "";
+      background: linear-gradient(180deg, #ffd700, #000);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      opacity: 0;
+    }
+
+    &:hover:after {
+      opacity: 0.85;
+    }
+
+    &:hover .content {
+      bottom: 0;
+      background: transparent;
+    }
+  }
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-    .portfolio-form {
-        padding: 25px;
-        grid-template-columns: 1fr;
+.screenshots {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+}
 
-        textarea,
-        input {
-            grid-column: span 1 !important;
-        }
+.screenshot-item {
+  text-align: center;
+}
+
+.screenshot {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+}
+
+.screenshot-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.screenshot-description {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.portfolio-form {
+  max-width: 900px;
+  margin: 60px auto 80px;
+  padding: 40px;
+  background: #1c1c1c;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+
+  h2 {
+    font-size: 26px;
+    margin-bottom: 30px;
+    color: #ffd700;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: #777;
     }
+
+    &:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+    grid-column: span 2;
+  }
+
+  input[name="image"],
+  input[name="screenshots"],
+  input[name="url"],
+  input[name="github"] {
+    grid-column: span 2;
+  }
+
+  .btn {
+    grid-column: span 2;
+    height: 50px;
+    font-size: 15px;
+    border-radius: 30px;
+    background: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #ffd700;
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .form-toggle {
-    display: flex;
-    justify-content: center;
-    margin: 60px 0 40px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 60px 0 40px;
+  position: relative;
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(
-            to right,
-            transparent,
-            rgba(255, 215, 0, 0.4),
-            transparent
-        );
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.4), transparent);
+  }
 }
 
 .toggle-btn {
-    position: relative;
-    z-index: 2;
-    padding: 14px 36px;
-    border-radius: 40px;
-    font-size: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  padding: 14px 36px;
+  border-radius: 40px;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: #111;
+  border: 2px solid #ffd700;
+  color: #ffd700;
+  transition: all 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 0 0 #ffd700;
 
-    background: #111;
-    border: 2px solid #ffd700;
-    color: #ffd700;
+  &:hover {
+    color: #000;
+    background: #ffd700;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(255, 215, 0, 0.25);
+  }
 
-    transition: all 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &.active {
+    background: #ffd700;
+    color: #000;
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.35);
+  }
+}
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 0 #ffd700;
+/* Responsive Media Queries */
+@media (max-width: 1280px) {
+  .portfolio-page .image-box {
+    flex: 1 1 45%;
+    max-width: calc(50% - 10px);
+  }
+}
 
-    &:hover {
-        color: #000;
-        background: #ffd700;
-        transform: translateY(-3px);
-        box-shadow:
-            0 14px 40px rgba(255, 215, 0, 0.25);
+@media (max-width: 768px) {
+  .portfolio-page .images-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 40px;
+    gap: 15px;
+
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    &.active {
-        background: #ffd700;
-        color: #000;
-        box-shadow:
-            0 12px 35px rgba(255, 215, 0, 0.35);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .portfolio-page .image-box {
+    flex: 0 0 80%;      // show ~1 card fully, part of next card visible
+    min-width: 80%;
+    max-width: 80%;
+    height: 380px;
+    scroll-snap-align: start;
+  }
+
+  .portfolio-page .portfolio-form {
+    padding: 25px;
+    grid-template-columns: 1fr;
+
+    textarea,
+    input {
+      grid-column: span 1 !important;
     }
+  }
 }
