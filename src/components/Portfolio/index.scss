@@ -1,102 +1,115 @@
+/* =========================
+   PORTFOLIO PAGE
+========================= */
+
 .portfolio-page {
-  padding-left: 100px;
-  padding-right: 50px;
-  width: calc(100% - 150px);
-  position: initial;
-  height: 100%;
-  overflow: auto;
+  padding: 100px 50px;
 
   h1.page-title {
     margin-left: 100px;
     margin-top: 100px;
   }
 
-  .images-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    padding-bottom: 100px;
-  }
+  /* SLIDER CONTAINER (DESKTOP) */
+ .images-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
+  padding-bottom: 40px;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+  /* SLIDE CARD (DESKTOP GRID) */
   .image-box {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
     position: relative;
-    flex: 1 1 20%;
-    height: 400px;
+    padding: 5%;
+    max-width: 105rem;
+    height: 250px; /* increased height for desktop */
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
-    max-width: calc(25% - 10px);
 
     .portfolio-image {
       position: absolute;
-      z-index: 2;
+      inset: 0;
+      
       width: 100%;
-      height: 100%;
+      height: 250px;
       object-fit: cover;
     }
 
     .content {
       position: absolute;
+      bottom: -70px;
       width: 100%;
       z-index: 3;
       padding: 10px 20px;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 1) 100%
+      );
       transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 1));
-      bottom: -70px;
     }
 
     .title {
       margin: 0;
-      color: #fff;
       font-size: 24px;
       font-weight: 500;
       line-height: 24px;
+      color: #fff;
     }
 
     .description {
       font-size: 14px;
+      font-weight: 700;
       margin-bottom: 5px;
       color: #fff;
-      font-weight: 700;
     }
 
     .btn {
-      margin-top: 30px;
-      margin-bottom: 10px;
+      margin: 30px 10px 10px 0;
       padding: 0 23px;
       height: 40px;
       line-height: 34px;
       border: 2px solid #ffd700;
       border-radius: 4px;
-      font-size: 14px;
-      color: #fff;
       background: transparent;
-      text-transform: uppercase;
+      font-size: 14px;
       font-weight: 700;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      text-transform: uppercase;
+      color: #fff;
       cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
       &:hover {
-        transform: translateY(-3px);
         background: #ffd700;
+        transform: translateY(-3px);
       }
     }
 
-    &:after {
+    &::after {
       content: "";
-      background: linear-gradient(180deg, #ffd700, #000);
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 2;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      background: linear-gradient(180deg, #ffd700, #000);
       opacity: 0;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
-    &:hover:after {
+    &:hover::after {
       opacity: 0.85;
     }
 
@@ -106,6 +119,20 @@
     }
   }
 }
+
+/* =========================
+   SLIDER LINE
+========================= */
+
+.slider-line {
+  height: 3px;
+  margin-bottom: 30px;
+  background: linear-gradient(to right, #ffd700, transparent);
+}
+
+/* =========================
+   SCREENSHOTS
+========================= */
 
 .screenshots {
   margin-top: 15px;
@@ -124,24 +151,28 @@
   object-fit: cover;
   border-radius: 6px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 
   &:hover {
     transform: scale(1.05);
-    transition: transform 0.3s ease;
   }
 }
 
 .screenshot-title {
   font-size: 12px;
   font-weight: 600;
-  color: #fff;
   margin-top: 4px;
+  color: #fff;
 }
 
 .screenshot-description {
   font-size: 11px;
   color: #ccc;
 }
+
+/* =========================
+   FORM
+========================= */
 
 .portfolio-form {
   max-width: 900px;
@@ -155,6 +186,7 @@
   gap: 20px;
 
   h2 {
+    grid-column: span 2;
     font-size: 26px;
     margin-bottom: 30px;
     color: #ffd700;
@@ -193,20 +225,20 @@
   input[name="image"],
   input[name="screenshots"],
   input[name="url"],
-  input[name="github"] {
+  input[name="github"],
+  .btn {
     grid-column: span 2;
   }
 
   .btn {
-    grid-column: span 2;
     height: 50px;
-    font-size: 15px;
     border-radius: 30px;
     background: transparent;
     border: 2px solid #ffd700;
     color: #ffd700;
-    letter-spacing: 1px;
+    font-size: 15px;
     text-transform: uppercase;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
 
     &:hover {
@@ -222,6 +254,10 @@
   }
 }
 
+/* =========================
+   FORM TOGGLE
+========================= */
+
 .form-toggle {
   display: flex;
   justify-content: center;
@@ -234,7 +270,12 @@
     top: 50%;
     width: 100%;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.4), transparent);
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 215, 0, 0.4),
+      transparent
+    );
   }
 }
 
@@ -250,38 +291,32 @@
   border: 2px solid #ffd700;
   color: #ffd700;
   transition: all 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 0 0 #ffd700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 
   &:hover {
-    color: #000;
     background: #ffd700;
+    color: #000;
     transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(255, 215, 0, 0.25);
   }
 
   &.active {
     background: #ffd700;
     color: #000;
-    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.35);
   }
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1280px) {
-  .portfolio-page .image-box {
-    flex: 1 1 45%;
-    max-width: calc(50% - 10px);
-  }
-}
+/* =========================
+   MOBILE + MD SCREEN
+========================= */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .portfolio-page .images-container {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding-bottom: 40px;
     gap: 15px;
+    padding-bottom: 40px;
 
     &::-webkit-scrollbar {
       display: none;
@@ -289,23 +324,35 @@
 
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-padding-inline: 10%; /* padding to help centering */
   }
 
   .portfolio-page .image-box {
-    flex: 0 0 80%;      // show ~1 card fully, part of next card visible
+    flex: 0 0 80%; /* show 1 card mostly */
     min-width: 80%;
     max-width: 80%;
-    height: 380px;
-    scroll-snap-align: start;
+    height: 380px; /* mobile height */
+    scroll-snap-align: center; /* center the card */
   }
 
   .portfolio-page .portfolio-form {
     padding: 25px;
     grid-template-columns: 1fr;
 
-    textarea,
-    input {
+    input,
+    textarea {
       grid-column: span 1 !important;
     }
+  }
+}
+
+
+
+
+
+/* Mobile screens */
+@media (max-width: 767px) {
+  .image-box {
+    height: 380px; // keep mobile height unchanged
   }
 }
