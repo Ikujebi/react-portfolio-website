@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import faNext from '../../assets/images/icons8-next.js-144.svg'
 import {
-  faAngular,
+
   faCss3,
   faGitAlt,
   faHtml5,
@@ -38,7 +39,7 @@ const About = () => {
             technologies on challenging and diverse projects.
           </p>
           <p align="LEFT">
-            I'm quiet confident, naturally curious, and perpetually working on
+            I'm quite confident, naturally curious, and perpetually working on
             improving my chops one design problem at a time.
           </p>
           <p>
@@ -49,7 +50,8 @@ const About = () => {
         <div className="stage-cube-cont">
           <div className="cubespinner">
             <div className="face1">
-              <FontAwesomeIcon icon={faAngular} color="#DD0031" />
+              <img src={faNext} alt="Next.js" />
+              
             </div>
             <div className="face2">
               <FontAwesomeIcon icon={faHtml5} color="#F06529" />
