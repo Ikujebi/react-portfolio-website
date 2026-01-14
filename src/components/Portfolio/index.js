@@ -15,6 +15,9 @@ const Portfolio = () => {
   const isDown = useRef(false)
   const startX = useRef(0)
   const scrollLeft = useRef(0)
+  const velocity = useRef(0)
+  const momentumID = useRef(null)
+  const autoSlideInterval = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const [form, setForm] = useState({
@@ -76,11 +79,19 @@ const Portfolio = () => {
     setLoading(false)
   }
 
-  /* AUTO SLIDE */
+  /* =========================
+     AUTO SLIDE
+  ========================= */
   useEffect(() => {
+    startAutoSlide()
+    return stopAutoSlide
+  }, [portfolio])
+
+  const startAutoSlide = () => {
+    stopAutoSlide()
     if (!sliderRef.current || portfolio.length === 0) return
 
-    const interval = setInterval(() => {
+    autoSlideInterval.current = setInterval(() => {
       setCurrentIndex(prev => {
         const next = prev + 1 >= portfolio.length ? 0 : prev + 1
         sliderRef.current.scrollTo({
@@ -90,27 +101,66 @@ const Portfolio = () => {
         return next
       })
     }, 4000)
-
-    return () => clearInterval(interval)
-  }, [portfolio])
-
-  /* DRAG */
-  const handleMouseDown = e => {
-    isDown.current = true
-    startX.current = e.pageX - sliderRef.current.offsetLeft
-    scrollLeft.current = sliderRef.current.scrollLeft
   }
 
-  const handleMouseUp = () => (isDown.current = false)
-  const handleMouseLeave = () => (isDown.current = false)
+  const stopAutoSlide = () => {
+    if (autoSlideInterval.current) clearInterval(autoSlideInterval.current)
+  }
 
-  const handleMouseMove = e => {
+  /* =========================
+     INERTIA DRAG SLIDER
+  ========================= */
+  const startDrag = clientX => {
+    isDown.current = true
+    startX.current = clientX - sliderRef.current.offsetLeft
+    scrollLeft.current = sliderRef.current.scrollLeft
+    velocity.current = 0
+    sliderRef.current.classList.add('active')
+    stopAutoSlide()
+    if (momentumID.current) cancelAnimationFrame(momentumID.current)
+  }
+
+  const drag = clientX => {
     if (!isDown.current) return
-    e.preventDefault()
-    const x = e.pageX - sliderRef.current.offsetLeft
+    const x = clientX - sliderRef.current.offsetLeft
     const walk = (x - startX.current) * 1.5
+    velocity.current = sliderRef.current.scrollLeft - (scrollLeft.current - walk) // calculate velocity
     sliderRef.current.scrollLeft = scrollLeft.current - walk
   }
+
+  const endDrag = () => {
+    isDown.current = false
+    sliderRef.current.classList.remove('active')
+    startMomentum()
+  }
+
+  const startMomentum = () => {
+    const decay = 0.95 // how fast it slows down (0.9 slower, 0.98 longer glide)
+    const minVelocity = 0.5
+
+    const step = () => {
+      sliderRef.current.scrollLeft += velocity.current
+      velocity.current *= decay
+
+      if (Math.abs(velocity.current) > minVelocity) {
+        momentumID.current = requestAnimationFrame(step)
+      } else {
+        cancelAnimationFrame(momentumID.current)
+        startAutoSlide() // resume auto-slide
+      }
+    }
+
+    momentumID.current = requestAnimationFrame(step)
+  }
+
+  const handleMouseDown = e => startDrag(e.pageX)
+  const handleMouseMove = e => drag(e.pageX)
+  const handleMouseUp = endDrag
+  const handleMouseLeave = endDrag
+
+  const handleTouchStart = e => startDrag(e.touches[0].pageX)
+  const handleTouchMove = e => drag(e.touches[0].pageX)
+  const handleTouchEnd = endDrag
 
   return (
     <>
@@ -156,13 +206,16 @@ const Portfolio = () => {
           className="images-container"
           ref={sliderRef}
           onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {portfolio.map(port => (
             <div className="image-box" key={port.id}>
-              <img src={port.image} alt={port.name} />
+              <img src={port.image} alt={port.name} className="portfolio-image" />
 
               <div className="content">
                 <p className="title">{port.name}</p>
@@ -170,9 +223,7 @@ const Portfolio = () => {
 
                 <div className="buttons">
                   {port.url && (
-                    <button onClick={() => window.open(port.url)}>
-                      Live
-                    </button>
+                    <button onClick={() => window.open(port.url)}>Live</button>
                   )}
                   {port.github && (
                     <button

@@ -24,6 +24,11 @@
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  cursor: grab; /* shows grab cursor */
+  &.active {
+    cursor: grabbing; /* shows grabbing cursor when dragging */
+  }
+
 }
 
   /* SLIDE CARD (DESKTOP GRID) */
