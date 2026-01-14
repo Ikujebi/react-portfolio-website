@@ -314,8 +314,8 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 1.6rem;
-    padding-bottom: 40px;
+    gap: 2rem;
+     padding: 0 2rem 40px 2rem;
 
     &::-webkit-scrollbar {
       display: none;
